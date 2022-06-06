@@ -1,4 +1,4 @@
-package com;
+package com.javarush.islandlifesimulator;
 
 import com.javarush.islandlifesimulator.process.Processor;
 
