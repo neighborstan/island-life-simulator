@@ -13,8 +13,8 @@ public class UserDialog {
     public UserDialog() {
         try (Scanner scanner = new Scanner(System.in)) {
 
-            System.out.println(APP_DESCRIPTION.toUpperCase());
             System.out.println(ISLAND_IMAGE);
+            System.out.println(APP_DESCRIPTION.toUpperCase());
             System.out.println(PRESS_ENTER_DEFAULT_VALUE);
 
             boolean isDefaultRunFlag = initDefaultRunFlag(scanner);

@@ -1,7 +1,6 @@
 package com.javarush.islandlifesimulator.dialog;
 
 public class DialogText {
-    public static final String APP_DESCRIPTION = "\nСимуляция жизненного цикла острова";
     public static final String ISLAND_IMAGE = """
             ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
             ⣿⣿⣿⣷⣶⣤⡈⠙⢿⣿⠿⠟⠛⣛⣻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
@@ -19,6 +18,7 @@ public class DialogText {
             ⣿⡉⠛⠿⠿⠟⠋⣉⣤⣴⣦⣄⠙⠻⠿⠿⠟⠛⠋⣉⣉⠙⠻⠿⠿⠟⠛⠛⢉⣿
             ⣿⣿⣷⣶⣶⣶⣿⣿⣿⣿⣿⣿⣿⣶⣶⣶⣶⣿⣿⣿⣿⣿⣶⣶⣶⣶⣿⣿⣿⣿
             """;
+    public static final String APP_DESCRIPTION = "=== Симуляция жизненного цикла острова ===\n";
     public static final String ISLAND_MAP = """
             ----------------------------------
                       Карта острова
