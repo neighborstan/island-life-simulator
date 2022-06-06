@@ -13,7 +13,9 @@ public class UserDialog {
     public UserDialog() {
         try (Scanner scanner = new Scanner(System.in)) {
 
-            System.out.println( ISLAND_IMAGE);
+            System.out.println(APP_DESCRIPTION.toUpperCase());
+            System.out.println(ISLAND_IMAGE);
+            System.out.println(PRESS_ENTER_DEFAULT_VALUE);
 
             boolean isDefaultRunFlag = initDefaultRunFlag(scanner);
             if (!isDefaultRunFlag) {
@@ -26,7 +28,6 @@ public class UserDialog {
                 reduceHealthPercent = initReduceHealthPercent(scanner);
                 plantGrowTime = initPlantGrowTime(scanner);
                 statPeriod = initStatPeriod(scanner);
-//                SimulationSettings.printTactTime = initPrintTactTime(scanner);
                 maxNumberOfTact = initMaxNumberOfTact(scanner);
 
             }
@@ -175,26 +176,6 @@ public class UserDialog {
         }
     }
 
-//    private boolean initPrintTactTime(Scanner scanner) {
-//        while (true) {
-//            System.out.print(MessageFormat.format(PRINT_TACT_TIME_YES_OR_NO));
-//
-//            String cycleTimeFlagAsString = scanner.nextLine();
-//            if (cycleTimeFlagAsString.equals("")) {
-//                return true;
-//            }
-//
-//            if (isInteger(cycleTimeFlagAsString)) {
-//                int cycleTimeFlag = Integer.parseInt(cycleTimeFlagAsString);
-//                if (cycleTimeFlag == 1) {
-//                    return true;
-//                }else if (cycleTimeFlag == 0) {
-//                    return false;
-//                }
-//            }
-//        }
-//    }
-
     private boolean initDefaultRunFlag(Scanner scanner) {
         while (true) {
             System.out.print(DEFAULT_RUN_YES_OR_NO);
@@ -224,7 +205,6 @@ public class UserDialog {
         System.out.println(MessageFormat.format(HEALTH_REDUCE_FROM_HUNGER, reduceHealthPercent));
         System.out.println(MessageFormat.format(PLANT_GROW_TIME, plantGrowTime));
         System.out.println(MessageFormat.format(STAT_PERIOD, statPeriod));
-//        System.out.println(MessageFormat.format(PRINT_TACT_TIME, SimulationSettings.printTactTime ? ANSWER_YES : ANSWER_NO));
         System.out.println(MessageFormat.format(STOP_SIMULATION, maxNumberOfTact));
         System.out.println("----------------------------------");
     }
