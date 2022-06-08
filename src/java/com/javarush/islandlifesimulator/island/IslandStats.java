@@ -28,7 +28,7 @@ public class IslandStats {
 
     /**
      * Метод создает задание печати статистики по острову
-     * @return задание класса Runnable
+     * @return задание печати статистики по острову
      */
     public Runnable createShowStatsTask() {
         return () -> printStats(collectStats());
