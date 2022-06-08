@@ -11,17 +11,33 @@ import java.util.concurrent.ConcurrentHashMap;
 import static com.javarush.islandlifesimulator.dialog.DialogText.EMOJI_KEY_COUNT_VALUE;
 import static com.javarush.islandlifesimulator.dialog.DialogText.TACT_STATS;
 
+/**
+ * Класс статистики по острову
+ */
 public class IslandStats {
+    /** Поле карта острова */
     private IslandMap islandMap;
 
+    /**
+     * Конструктор класса, инициализирует поле карты острова
+     * @param islandMap - объект карты острова
+     */
     public IslandStats(IslandMap islandMap) {
         this.islandMap = islandMap;
     }
 
+    /**
+     * Метод создает задание печати статистики по острову
+     * @return задание класса Runnable
+     */
     public Runnable createShowStatsTask() {
         return () -> printStats(collectStats());
     }
 
+    /**
+     * Метод собирает статистику по всем сущностям острова
+     * @return возвращает карту с эмодзи сущностей и их кол-вом на острове в текущий момент времени
+     */
     private Map<String, Integer> collectStats() {
         Map<String, Integer> entitiesStats = new ConcurrentHashMap<>();
 
@@ -46,6 +62,10 @@ public class IslandStats {
         return entitiesStats;
     }
 
+    /**
+     * Метод печати статистики с кол-вом сущностей на острове (с очищением консоли)
+     * @param entitiesStatistics - карта с эмодзи сущностей и их кол-вом на острове в текущий момент времени
+     */
     private void printStats(Map<String, Integer> entitiesStatistics) {
         clearConsole();
         System.out.println(MessageFormat.format(TACT_STATS, IslandController.TACT_NUMBER.get(), IslandController.duration_tact));
@@ -56,6 +76,9 @@ public class IslandStats {
         System.out.println("\n");
     }
 
+    /**
+     * Метод очищает консоль каждый такт жизненного цикла острова
+     */
     private static void clearConsole() {
         try {
             if (System.getProperty("os.name").contains("Windows")) {
