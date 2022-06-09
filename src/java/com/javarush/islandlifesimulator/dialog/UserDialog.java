@@ -44,7 +44,7 @@ public class UserDialog {
 
     /**
      * Метод определяет максимальный номер такта жизненного цикла острова для завершения симуляции
-     * @param scanner - объект сканера для считывания данных
+     * @param scanner объект сканера для считывания данных
      * @return возвращает номер максимального такта
      */
     private int initMaxNumberOfTact(Scanner scanner) {
@@ -69,7 +69,7 @@ public class UserDialog {
 
     /**
      * Метод определяет ширину карты острова
-     * @param scanner - объект сканера для считывания данных
+     * @param scanner объект сканера для считывания данных
      * @return возвращает ширину карты
      */
     private int initWidthMap(Scanner scanner) {
@@ -94,7 +94,7 @@ public class UserDialog {
 
     /**
      * Метод определяет высоту карты острова
-     * @param scanner - объект сканера для считывания данных
+     * @param scanner объект сканера для считывания данных
      * @return возвращает высоту карты
      */
     private int initHeightMap(Scanner scanner) {
@@ -119,7 +119,7 @@ public class UserDialog {
 
     /**
      * Метод определяет максимальное кол-во животных в локации на старте симуляции
-     * @param scanner - объект сканера для считывания данных
+     * @param scanner объект сканера для считывания данных
      * @return возвращает максимальное кол-во животных
      */
     private int initMaxAnimalCountAtStart(Scanner scanner) {
@@ -144,7 +144,7 @@ public class UserDialog {
 
     /**
      * Метод определяет процент уменьшения здоровья от голода каждый такт
-     * @param scanner - объект сканера для считывания данных
+     * @param scanner объект сканера для считывания данных
      * @return возвращает процент уменьшения здоровья
      */
     private double initReduceHealthPercent(Scanner scanner) {
@@ -169,7 +169,7 @@ public class UserDialog {
 
     /**
      * Метод определяет частоту роста растений в течение жизненного цикла, в мс
-     * @param scanner - объект сканера для считывания данных
+     * @param scanner объект сканера для считывания данных
      * @return возвращает частоту роста растений, в мс
      */
     private int initPlantGrowTime(Scanner scanner) {
@@ -194,7 +194,7 @@ public class UserDialog {
 
     /**
      * Метод определяет частоту изменения статистических данных в течение жизненного цикла, в мс
-     * @param scanner - объект сканера для считывания данных
+     * @param scanner объект сканера для считывания данных
      * @return возвращает частоту изменения статистических данных, в мс
      */
     private int initStatPeriod(Scanner scanner) {
@@ -219,7 +219,7 @@ public class UserDialog {
 
     /**
      * Метод определяет желание пользователя запуска симуляции с дефолтными параметрами
-     * @param scanner - объект сканера для считывания данных
+     * @param scanner объект сканера для считывания данных
      * @return возвращает true, если пользователь согласен на дефолтные параметры запуска
      */
     private boolean initDefaultRunFlag(Scanner scanner) {
@@ -260,7 +260,7 @@ public class UserDialog {
 
     /**
      * Метод предлагает пользователя запустить симуляцию
-     * @param scanner - объект сканера для считывания данных
+     * @param scanner объект сканера для считывания данных
      */
     private void startSim(Scanner scanner){
         System.out.println(TYPE_START_AND_PRESS_ENTER);
@@ -272,7 +272,7 @@ public class UserDialog {
 
     /**
      * Метод проверяет переданную строку является ли она числом
-     * @param str - проверяемая строка
+     * @param str проверяемая строка
      * @return возвращает true, если строка является числом
      */
     private boolean isInteger(String str) {
@@ -286,9 +286,9 @@ public class UserDialog {
 
     /**
      * Метод определяет вхождение переданного числа в валидный диапазон
-     * @param number - проверяемое число
-     * @param minLimit - минимальная граница диапазона
-     * @param maxLimit - максимальная граница диапазона
+     * @param number проверяемое число
+     * @param minLimit минимальная граница диапазона
+     * @param maxLimit максимальная граница диапазона
      * @return возвращает true, если число входит в валидный диапазон
      */
     private boolean isMinMaxRangeValid(int number, int minLimit, int maxLimit) {
