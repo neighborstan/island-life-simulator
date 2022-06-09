@@ -6,13 +6,13 @@ package com.javarush.islandlifesimulator.settings;
 public class SimulationSettings {
     /** Кол-во используемых потоков */
     public static final int INITIAL_CORE_POOL_SIZE = 3;
-    /** Через сколько мс стартуем первый такт жизненного цикла */
+    /** Через сколько стартуем первый такт жизненного цикла, мс */
     public static final int INITIAL_DELAY_TACT_MILLIS = 100;
     /** Частота между тактами, мс */
     public static final int TACT_TIME_DELAY_MILLIS = 100;
-    /** Через сколько мс стартуем задание показа статистики */
+    /** Через сколько стартуем задание показа статистики, мс */
     public static final int INITIAL_DELAY_SHOW_STATS_MILLIS = 100;
-    /** Через сколько мс стартуем задание роста растений */
+    /** Через сколько стартуем задание роста растений, мс */
     public static final int INITIAL_DELAY_PLANT_GROW_MILLIS = 1000;
 
     /** Минимальное кол-во тактов для завершения симуляции */
@@ -39,9 +39,9 @@ public class SimulationSettings {
     public static final int MIN_LIMIT_PLANT_GROW_DELAY = 1;
     /** Максимальное кол-во времени между ростом растений, мс */
     public static final int MAX_LIMIT_PLANT_GROW_DELAY = 60000;
-    /** Минимальное кол-во времени между отображением статистики */
+    /** Минимальное кол-во времени между отображением статистики, мс */
     public static final int MIN_LIMIT_STAT_PERIOD = 100;
-    /** Максимальное кол-во времени между отображением статистики */
+    /** Максимальное кол-во времени между отображением статистики, мс */
     public static final int MAX_LIMIT_STAT_PERIOD = 60000;
 
     /** Настраиваемый параметр ширины карты острова */
@@ -50,13 +50,13 @@ public class SimulationSettings {
     public static int heightMap = 20;
     /** Настраиваемый параметр кол-ва животных в локации при заполнении */
     public static int maxAnimalCount = 1;
-    /** Настраиваемый параметр уменьшения здоровья ежетактно */
+    /** Настраиваемый параметр уменьшения здоровья ежетактно, % */
     public static double reduceHealthPercent = 30;
-    /** Настраиваемый параметр увеличения здоровья */
+    /** Настраиваемый параметр увеличения здоровья, % */
     public static double increaseHealthPercent = 30;
-    /** Настраиваемый параметр частоты роста растений */
+    /** Настраиваемый параметр частоты роста растений, мс */
     public static int plantGrowTime = 100;
-    /** Настраиваемый параметр частоты вывода статистики в консоль */
+    /** Настраиваемый параметр частоты вывода статистики в консоль, мс */
     public static int statPeriod = 100;
     /** Настраиваемый параметр максимального номера такта для завершения симуляции */
     public static int maxNumberOfTact = 300;
