@@ -32,7 +32,7 @@ public class Location {
      * Метод добавляет сущность в список сущностей локации
      * @param entity сущность (животное/растение)
      */
-    public synchronized void addEntity(Entity entity) {
+    public void addEntity(Entity entity) {
         entities.add(entity);
     }
 
@@ -40,7 +40,7 @@ public class Location {
      * Метод удаляет сущность из списка сущностей локации
      * @param entity сущность (животное/растение)
      */
-    public synchronized void removeEntity(Entity entity) {
+    public void removeEntity(Entity entity) {
         entities.remove(entity);
     }
 
