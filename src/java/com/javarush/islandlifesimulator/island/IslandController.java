@@ -20,8 +20,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class IslandController {
     /** Поле номер текущего такта жизненного цикла острова */
     public static final AtomicInteger TACT_NUMBER = new AtomicInteger(0);
+
     /** Поле продолжительность текущего такта жизненного цикла острова */
     public static volatile long duration_tact = 0;
+
     /** Поле карта острова */
     private IslandMap map;
     /** Поле статистика по острову */
@@ -31,7 +33,7 @@ public class IslandController {
 
     /**
      * Конструктор класса, инициализирует поле карты острова
-     * @param map - объект карты острова
+     * @param map объект карты острова
      */
     public IslandController(IslandMap map) {
         this.map = map;
@@ -82,7 +84,7 @@ public class IslandController {
 
     /**
      * Метод создает задание для выполнения действий сущностями в каждой локации
-     * @param location - отдельная локация карты острова
+     * @param location отдельная локация карты острова
      * @return возвращает задание для выполнения действий сущностями в каждой локации
      */
     private Runnable createLocationTask(Location location) {
@@ -108,7 +110,7 @@ public class IslandController {
 
     /**
      * Метод проверяет жизненный цикл на возможность завершения
-     * @param currentTact - номер текущего такта жизненного цикла
+     * @param currentTact номер текущего такта жизненного цикла
      * @return возвращает true, если текущий такт больше или равен максимальному
      */
     private boolean isEndLifeCycle(int currentTact) {
@@ -117,7 +119,7 @@ public class IslandController {
 
     /**
      * Метод уменьшает уровень здоровья животного на N процентов
-     * @param animal - животное, у которого уменьшается уровень здоровья
+     * @param animal животное, у которого уменьшается уровень здоровья
      */
     private void reduceHealth(Animal animal) {
         double healthScale = animal.getHealthScale() - ((animal.getEnoughAmountFood() * SimulationSettings.reduceHealthPercent) / 100);
@@ -126,7 +128,7 @@ public class IslandController {
 
     /**
      * Метод увеличивает уровень здоровья животного на N процентов
-     * @param animal - животоное, у которого увеличивается уровень здоровья
+     * @param animal животоное, у которого увеличивается уровень здоровья
      */
     private void increaseHealth(Animal animal) {
         double healthScale = animal.getHealthScale() + ((animal.getEnoughAmountFood() * SimulationSettings.increaseHealthPercent) / 100);
@@ -138,8 +140,8 @@ public class IslandController {
 
     /**
      * Метод выполняет действие Кушать, если есть пища в локации
-     * @param animal - животное, которое пытается покушать
-     * @param location - текущая локация
+     * @param animal животное, которое пытается покушать
+     * @param location текущая локация
      */
     private void doEat(Animal animal, Location location) {
         List<Entity> entities = location.getEntities();
@@ -158,8 +160,8 @@ public class IslandController {
 
     /**
      * Метод выполняет действие Размножение, если есть пара в локации
-     * @param animal - животное, которое пытается размножиться
-     * @param location - текущая локация
+     * @param animal животное, которое пытается размножиться
+     * @param location текущая локация
      */
     private void doProduce(Animal animal, Location location) {
         List<Animal> animals = location.getAnimals();
@@ -176,8 +178,8 @@ public class IslandController {
 
     /**
      * Метод выполняет действие Двигаться в рандомном направлении на величину не более чем N шагов
-     * @param animal - животное, которое пытается двигаться
-     * @param location - текущая локация
+     * @param animal животное, которое пытается двигаться
+     * @param location текущая локация
      */
     private void doMove(Animal animal, Location location) {
         int stepsCount = ThreadLocalRandom.current().nextInt(animal.getSpeed() + 1);
@@ -196,7 +198,7 @@ public class IslandController {
 
     /**
      * Метод выполняет действие Спать с увеличение уровня здоровья
-     * @param animal - животное, которое пытается спать
+     * @param animal животное, которое пытается спать
      */
     private void doSleep(Animal animal) {
         increaseHealth(animal);
@@ -204,9 +206,9 @@ public class IslandController {
 
     /**
      * Метод выполняет одно из действий для животного в локации с последующим уменьшением уровня здоровья
-     * @param action - действие которое совершает животное
-     * @param animal - животное, совершающее действие
-     * @param location - текущая локация
+     * @param action действие которое совершает животное
+     * @param animal животное, совершающее действие
+     * @param location текущая локация
      */
     private void doAction(Action action, Animal animal, Location location) {
         switch (action) {
@@ -220,7 +222,7 @@ public class IslandController {
 
     /**
      * Метод проверяет достаточный ли уровень здоровья для жизни животного
-     * @param animal - проверяемое животное
+     * @param animal проверяемое животное
      * @return возвращает true если животное умерло
      */
     private boolean isDead(Animal animal) {
@@ -229,8 +231,8 @@ public class IslandController {
 
     /**
      * Метод двигает животное по карте на шаг вниз если такая возможность есть
-     * @param animal - передвигаемое животное
-     * @param currentLocation - текущая локация
+     * @param animal передвигаемое животное
+     * @param currentLocation текущая локация
      * @return возвращает новую локацию животного либо прежнюю если нет возможности двигаться вниз
      */
     private Location stepDown(Animal animal, Location currentLocation) {
@@ -247,8 +249,8 @@ public class IslandController {
 
     /**
      * Метод двигает животное по карте на шаг вверх если такая возможность есть
-     * @param animal - передвигаемое животное
-     * @param currentLocation - текущая локация
+     * @param animal передвигаемое животное
+     * @param currentLocation текущая локация
      * @return возвращает новую локацию животного либо прежнюю если нет возможности двигаться вверх
      */
     private Location stepUp(Animal animal, Location currentLocation) {
@@ -265,8 +267,8 @@ public class IslandController {
 
     /**
      * Метод двигает животное по карте на шаг влево если такая возможность есть
-     * @param animal - передвигаемое животное
-     * @param currentLocation - текущая локация
+     * @param animal передвигаемое животное
+     * @param currentLocation текущая локация
      * @return возвращает новую локацию животного либо прежнюю если нет возможности двигаться влево
      */
     private Location stepLeft(Animal animal, Location currentLocation) {
@@ -283,8 +285,8 @@ public class IslandController {
 
     /**
      * Метод двигает животное по карте на шаг вправо если такая возможность есть
-     * @param animal - передвигаемое животное
-     * @param currentLocation - текущая локация
+     * @param animal передвигаемое животное
+     * @param currentLocation текущая локация
      * @return возвращает новую локацию животного либо прежнюю если нет возможности двигаться вправо
      */
     private Location stepRight(Animal animal, Location currentLocation) {

@@ -9,14 +9,24 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Класс обеспечивает запуск симуляции в разных потоках
+ */
 public class Processor {
+    /** Поле запуск заданий по расписанию */
     public static ScheduledExecutorService executorService;
 
+    /** Поле диалог с пользователем */
     private UserDialog dialog;
+    /** Поле карта острова */
     private IslandMap map;
+    /** Поле управление островом */
     private IslandController controller;
 
-
+    /**
+     * Конструктор класса, инициализирует поле диалога с пользователем,
+     * поле карты острова, поле управления островом, поле запуска заданий по расписанию
+     */
     public Processor() {
         this.dialog = new UserDialog();
         this.map = new IslandMap(SimulationSettings.widthMap, SimulationSettings.heightMap);
@@ -25,6 +35,10 @@ public class Processor {
         executorService = Executors.newScheduledThreadPool(SimulationSettings.INITIAL_CORE_POOL_SIZE);
     }
 
+    /**
+     * Метод стартует основные процессы для запуска симуляции:
+     * инициализация карты, ее заполнение, запуск заданий в потоках
+     */
     public void start() {
         controller.getMap().initialize();
         controller.getMap().fill(SimulationSettings.maxAnimalCount);

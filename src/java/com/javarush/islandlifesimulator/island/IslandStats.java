@@ -20,7 +20,7 @@ public class IslandStats {
 
     /**
      * Конструктор класса, инициализирует поле карты острова
-     * @param islandMap - объект карты острова
+     * @param islandMap объект карты острова
      */
     public IslandStats(IslandMap islandMap) {
         this.islandMap = islandMap;
@@ -64,7 +64,7 @@ public class IslandStats {
 
     /**
      * Метод печати статистики с кол-вом сущностей на острове (с очищением консоли)
-     * @param entitiesStatistics - карта с эмодзи сущностей и их кол-вом на острове в текущий момент времени
+     * @param entitiesStatistics карта с эмодзи сущностей и их кол-вом на острове в текущий момент времени
      */
     private void printStats(Map<String, Integer> entitiesStatistics) {
         clearConsole();

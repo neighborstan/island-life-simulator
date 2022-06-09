@@ -19,8 +19,8 @@ public class IslandMap {
 
     /**
      * Конструктор класса, инициализирует ширину, высоту карты и массив локаций карты
-     * @param width - ширина карты острова
-     * @param height - высота карты острова
+     * @param width ширина карты острова
+     * @param height высота карты острова
      */
     public IslandMap(int width, int height) {
         this.width = width;
@@ -41,7 +41,7 @@ public class IslandMap {
 
     /**
      * Метод заполняет карту рандомными животными
-     * @param maxEntityCount - максимальное кол-во животных в локации.
+     * @param maxEntityCount максимальное кол-во животных в локации.
      */
     public void fill(int maxEntityCount) {
         for (int coordY = 0; coordY < height; coordY++) {
