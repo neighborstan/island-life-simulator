@@ -1,5 +1,8 @@
 package com.javarush.islandlifesimulator.dialog;
 
+/**
+ * Класс содержит тектовые константы для использования в приложении
+ */
 public class DialogText {
     public static final String ISLAND_IMAGE = """
             ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿

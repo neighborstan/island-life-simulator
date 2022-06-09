@@ -4,8 +4,11 @@ import com.javarush.islandlifesimulator.entities.animals.Animal;
 
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * Класс управляет питанием животных
+ */
 public class EatingMap {
-    //TODO вытащить в настройки
+    /** Индекс максимальной вероятности животного покушать */
     private static final int MAX_EATABLE_INDEX = 100;
 
     /**
@@ -30,7 +33,12 @@ public class EatingMap {
             {0,  0,   0,  0, 0,  0,   0,   0,   0,   0,   0,   0,   0,   0,  90,  100},
             {0,  0,   0,  0, 0,  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,  100}};
 
-
+    /**
+     * Метод определяет возможность животного выполнить действие Покушать в отношении другой сущности
+     * @param hungryAnimal животное, которое пытается покушать
+     * @param foodEntity сущность (животное/растение), которое является пищей
+     * @return возвращает true, если вероятность покушать осуществляется
+     */
     public static boolean isEaten(Animal hungryAnimal, Entity foodEntity){
         int hungryAnimalIndex = EntityType.valueOf(hungryAnimal.getClass().getSimpleName().toUpperCase()).ordinal();
         int foodEntityIndex = EntityType.valueOf(foodEntity.getClass().getSimpleName().toUpperCase()).ordinal();
