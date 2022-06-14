@@ -1,5 +1,6 @@
 package com.javarush.islandlifesimulator.island;
 
+import com.javarush.islandlifesimulator.entities.EatingMap;
 import com.javarush.islandlifesimulator.entities.Entity;
 import com.javarush.islandlifesimulator.entities.animals.Action;
 import com.javarush.islandlifesimulator.entities.animals.Animal;
@@ -20,6 +21,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class IslandController {
     /** Поле номер текущего такта жизненного цикла острова */
     public static final AtomicInteger TACT_NUMBER = new AtomicInteger(0);
+    /** Поле номер текущего такта жизненного цикла острова */
+    private EatingMap eatingMap;
 
     /** Поле продолжительность текущего такта жизненного цикла острова */
     public static volatile long duration_tact = 0;
@@ -39,6 +42,7 @@ public class IslandController {
         this.map = map;
         this.statistics = new IslandStats(map);
         this.locationRunExecutor = Executors.newWorkStealingPool();
+        this.eatingMap = new EatingMap();
     }
 
     /**
@@ -152,7 +156,9 @@ public class IslandController {
 
         if (foodEntities.size() > 0) {
             Entity foodEntity = foodEntities.get(ThreadLocalRandom.current().nextInt(foodEntities.size()));
-            if (animal.eat(foodEntity)) {
+
+            if (eatingMap.isEaten(animal, foodEntity)) {
+                animal.eat(foodEntity);
                 location.removeEntity(foodEntity);
             }
         }

@@ -16,7 +16,7 @@ public class EatingMap {
      * Строки - типы животных в порядке, котором они перечислены в enum EntityType
      * Столбцы - отсчет слева, типы животных в порядке, котором они перечислены в enum EntityType
      */
-    private static final int[][] EATABLE_INDEXES = {
+    private final int[][] EATABLE_INDEXES = {
             {0,  0,   0,  0, 0, 10,  15,  60,  80,  60,  70,  15,  10,  40,   0,    0},
             {0,  0,  15,  0, 0,  0,   0,  20,  40,   0,   0,   0,   0,  10,   0,    0},
             {0,  0,   0,  0, 0,  0,   0,  70,  90,   0,   0,   0,   0,  60,  40,    0},
@@ -39,7 +39,7 @@ public class EatingMap {
      * @param foodEntity сущность (животное/растение), которое является пищей
      * @return возвращает true, если вероятность покушать осуществляется
      */
-    public static boolean isEaten(Animal hungryAnimal, Entity foodEntity){
+    public boolean isEaten(Animal hungryAnimal, Entity foodEntity){
         int hungryAnimalIndex = EntityType.valueOf(hungryAnimal.getClass().getSimpleName().toUpperCase()).ordinal();
         int foodEntityIndex = EntityType.valueOf(foodEntity.getClass().getSimpleName().toUpperCase()).ordinal();
 

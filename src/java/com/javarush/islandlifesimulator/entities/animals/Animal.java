@@ -40,7 +40,7 @@ public abstract class Animal extends Entity {
         return enoughAmountFood;
     }
 
-    public abstract boolean eat(Entity entity);
+    public abstract void eat(Entity entity);
 
     public abstract Animal reproduce();
 
