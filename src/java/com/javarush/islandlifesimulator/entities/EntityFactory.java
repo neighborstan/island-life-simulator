@@ -6,7 +6,7 @@ import com.javarush.islandlifesimulator.entities.plants.Plant;
 
 public class EntityFactory {
 
-    public static Entity createAnimal (EntityType type) {
+    public Entity createAnimal (EntityType type) {
 
         return switch (type) {
             case WOLF -> new Wolf();

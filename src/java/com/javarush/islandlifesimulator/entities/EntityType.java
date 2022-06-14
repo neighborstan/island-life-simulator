@@ -1,6 +1,8 @@
 package com.javarush.islandlifesimulator.entities;
 
-
+/**
+ * Перечисление содержит список сущностей острова
+ */
 public enum EntityType {
     WOLF("\uD83D\uDC01"),
     SNAKE("\uD83D\uDC0D"),
@@ -19,12 +21,21 @@ public enum EntityType {
     CATERPILLAR("\uD83D\uDC1B"),
     PLANT("\uD83C\uDF31");
 
+    /** Поле юникод-последовательность(эмодзи) для отображения сущности */
     private String unicodeSymbol;
 
+    /**
+     * Конструктор перечисления, инициализирует поле с эмодзи сущности
+     * @param unicodeSymbol юникод-последовательность символов для отображения в виде эмодзи
+     */
     EntityType(String unicodeSymbol) {
         this.unicodeSymbol = unicodeSymbol;
     }
 
+    /**
+     * Геттер для поля юникод-последовательность(эмодзи) сущности
+     * @return возвращает юникод-последовательность символов
+     */
     public String getUnicodeSymbol() {
         return unicodeSymbol;
     }

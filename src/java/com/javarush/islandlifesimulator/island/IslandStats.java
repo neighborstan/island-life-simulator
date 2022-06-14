@@ -79,7 +79,7 @@ public class IslandStats {
     /**
      * Метод очищает консоль каждый такт жизненного цикла острова
      */
-    private static void clearConsole() {
+    private void clearConsole() {
         try {
             if (System.getProperty("os.name").contains("Windows")) {
                 new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();

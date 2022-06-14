@@ -10,6 +10,8 @@ import java.util.concurrent.ThreadLocalRandom;
  *  Класс карты острова
  */
 public class IslandMap {
+    /** Поле объект фабрики сущностей */
+    private final EntityFactory entityFactory;
     /** Поле ширина карты острова */
     private int width;
     /** Поле высота карты острова */
@@ -18,7 +20,7 @@ public class IslandMap {
     private Location[][] locations;
 
     /**
-     * Конструктор класса, инициализирует ширину, высоту карты и массив локаций карты
+     * Конструктор класса, инициализирует ширину, высоту карты, массив локаций карты и объект фабрики сущностей
      * @param width ширина карты острова
      * @param height высота карты острова
      */
@@ -26,6 +28,7 @@ public class IslandMap {
         this.width = width;
         this.height = height;
         this.locations = new Location[height][width];
+        this.entityFactory = new EntityFactory();
     }
 
     /**
@@ -63,7 +66,7 @@ public class IslandMap {
             int coordX = ThreadLocalRandom.current().nextInt(getWidth());
             int coordY = ThreadLocalRandom.current().nextInt(getHeight());
             Location location = locations[coordY][coordX];
-            location.addEntity(EntityFactory.createAnimal(EntityType.PLANT));
+            location.addEntity(entityFactory.createAnimal(EntityType.PLANT));
         };
     }
 
@@ -99,6 +102,6 @@ public class IslandMap {
         EntityType[] entityTypes = EntityType.values();
         int size = entityTypes.length;
         EntityType entityType = entityTypes[ThreadLocalRandom.current().nextInt(size)];
-        return EntityFactory.createAnimal(entityType);
+        return entityFactory.createAnimal(entityType);
     }
 }
