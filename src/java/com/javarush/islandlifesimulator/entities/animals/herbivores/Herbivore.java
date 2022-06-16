@@ -1,6 +1,5 @@
 package com.javarush.islandlifesimulator.entities.animals.herbivores;
 
-import com.javarush.islandlifesimulator.entities.EatingMap;
 import com.javarush.islandlifesimulator.entities.Entity;
 import com.javarush.islandlifesimulator.entities.animals.Animal;
 
