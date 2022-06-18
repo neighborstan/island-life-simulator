@@ -48,6 +48,6 @@ public class DialogText {
     public static final String PLANT_GROW_DELAY = "Частота роста растений, по-умолчанию каждые {0}мс ({1}÷{2}): ";
     public static final String MAX_TACT_NUMBER_TO_STOP_SIM = "Максимальное кол-во тактов для остановки симуляции, по-умолчанию {0} ({1}÷{2}): ";
 
-    public static final String TACT_STATS = "\n*** Такт {0}-й. Продолжительность {1}мс ***";
+    public static final String TACT_STATS = "\n*** Такт {0}-й ***";
     public static final String EMOJI_KEY_COUNT_VALUE = "{0} - {1}";
 }

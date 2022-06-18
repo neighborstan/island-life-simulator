@@ -68,7 +68,7 @@ public class IslandStats {
      */
     private void printStats(Map<String, Integer> entitiesStatistics) {
         clearConsole();
-        System.out.println(MessageFormat.format(TACT_STATS, IslandController.TACT_NUMBER.get(), IslandController.duration_tact));
+        System.out.println(MessageFormat.format(TACT_STATS, IslandController.TACT_NUMBER.get()));
         System.out.println();
         entitiesStatistics.forEach((key, value) -> {
             System.out.println(MessageFormat.format(EMOJI_KEY_COUNT_VALUE, key, value));

@@ -24,9 +24,6 @@ public class IslandController {
     /** Поле номер текущего такта жизненного цикла острова */
     private EatingMap eatingMap;
 
-    /** Поле продолжительность текущего такта жизненного цикла острова */
-    public static volatile long duration_tact = 0;
-
     /** Поле карта острова */
     private IslandMap map;
     /** Поле статистика по острову */
@@ -52,7 +49,6 @@ public class IslandController {
      */
     public Runnable createLifeCycleTask() {
         return () -> {
-            long time = System.currentTimeMillis();
 
             for (int coordY = 0; coordY < map.getHeight(); coordY++) {
                 for (int coordX = 0; coordX < map.getWidth(); coordX++) {
@@ -62,7 +58,6 @@ public class IslandController {
                 }
             }
             int currentTact = TACT_NUMBER.getAndIncrement();
-            duration_tact = System.currentTimeMillis() - time;
 
             if (isEndLifeCycle(currentTact)) {
                 stopSimulation();
