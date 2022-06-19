@@ -4,6 +4,9 @@ package com.javarush.islandlifesimulator.settings;
  * Класс содержит основные константы и изменяемые параметры приложения
  */
 public class SimulationSettings {
+    /** Путь к файлу с данными таблицы вероятностей покушать */
+    public static final String PATH_TO_EATING_CHANCE_DATA = "resources/eating-chance-data.yaml";
+
     /** Кол-во используемых потоков */
     public static final int INITIAL_CORE_POOL_SIZE = 3;
     /** Через сколько стартуем первый такт жизненного цикла, мс */

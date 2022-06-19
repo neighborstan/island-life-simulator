@@ -1,5 +1,7 @@
 package com.javarush.islandlifesimulator.island;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 import com.javarush.islandlifesimulator.entities.EatingMap;
 import com.javarush.islandlifesimulator.entities.Entity;
 import com.javarush.islandlifesimulator.entities.animals.Action;
@@ -8,7 +10,10 @@ import com.javarush.islandlifesimulator.entities.animals.Direction;
 import com.javarush.islandlifesimulator.process.Processor;
 import com.javarush.islandlifesimulator.settings.SimulationSettings;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -21,25 +26,26 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class IslandController {
     /** Поле номер текущего такта жизненного цикла острова */
     public static final AtomicInteger TACT_NUMBER = new AtomicInteger(0);
-    /** Поле номер текущего такта жизненного цикла острова */
-    private EatingMap eatingMap;
-
+    /** Индекс максимальной вероятности животного покушать */
+    private static final int MAX_EATABLE_INDEX = 100;
     /** Поле карта острова */
     private IslandMap map;
+    /** Объект класса с данными вероятностей животных покушать */
+    private EatingMap eatingMap;
     /** Поле статистика по острову */
     private IslandStats statistics;
     /** Поле сервис исполнения заданий по каждой локации острова  */
     private ExecutorService locationRunExecutor;
 
     /**
-     * Конструктор класса, инициализирует поле карты острова
+     * Конструктор класса
      * @param map объект карты острова
      */
     public IslandController(IslandMap map) {
         this.map = map;
         this.statistics = new IslandStats(map);
         this.locationRunExecutor = Executors.newWorkStealingPool();
-        this.eatingMap = new EatingMap();
+        this.eatingMap = initEatingChanceData();
     }
 
     /**
@@ -152,7 +158,7 @@ public class IslandController {
         if (foodEntities.size() > 0) {
             Entity foodEntity = foodEntities.get(ThreadLocalRandom.current().nextInt(foodEntities.size()));
 
-            if (eatingMap.isEaten(animal, foodEntity)) {
+            if (isEaten(animal, foodEntity)) {
                 animal.eat(foodEntity);
                 location.removeEntity(foodEntity);
             }
@@ -228,6 +234,44 @@ public class IslandController {
      */
     private boolean isDead(Animal animal) {
         return animal.getHealthScale() < 0;
+    }
+
+    /**
+     * Метод определяет возможность животного выполнить действие Покушать в отношении другой сущности
+     * @param hungryAnimal животное, которое пытается покушать
+     * @param foodEntity сущность (животное/растение), которое является пищей
+     * @return возвращает true, если вероятность покушать осуществляется
+     */
+    private boolean isEaten(Animal hungryAnimal, Entity foodEntity){
+        int probabilityOfEating = getEatableChanceIndex(hungryAnimal, foodEntity);
+
+        return ThreadLocalRandom.current().nextInt(MAX_EATABLE_INDEX) < probabilityOfEating;
+    }
+
+    /**
+     * Метод генерирует объет карты вероятностей животных покушать из файла с данными eating-chance-data.yaml
+     * @return возвращает объект карты вероятностей
+     */
+    private EatingMap initEatingChanceData() {
+        ObjectMapper mapper = new YAMLMapper();
+        EatingMap eatingMap = null;
+        try (InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(SimulationSettings.PATH_TO_EATING_CHANCE_DATA)) {
+            eatingMap = mapper.readValue(inputStream, EatingMap.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return eatingMap;
+    }
+
+    /**
+     * Метод определяет значение веротяности животного покушать по данным из файла
+     * @param hungryAnimal голодное животное
+     * @param foodEntity пища
+     * @return возвращает значение вероятности
+     */
+    private Integer getEatableChanceIndex(Animal hungryAnimal, Entity foodEntity){
+        Map<String, Integer> map = eatingMap.getEatableIndexes().get(hungryAnimal.getClass().getSimpleName());
+        return map.get(foodEntity.getClass().getSimpleName());
     }
 
     /**
