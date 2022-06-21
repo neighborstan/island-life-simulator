@@ -1,9 +1,8 @@
-package com.javarush.islandlifesimulator.process;
+package com.javarush.islandlifesimulator.simulation;
 
 import com.javarush.islandlifesimulator.dialog.UserDialog;
 import com.javarush.islandlifesimulator.island.IslandController;
 import com.javarush.islandlifesimulator.island.IslandMap;
-import com.javarush.islandlifesimulator.settings.SimulationSettings;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -12,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Класс обеспечивает запуск симуляции в разных потоках
  */
-public class Processor {
+public class SimulationStarter {
     /** Поле запуск заданий по расписанию */
     public static ScheduledExecutorService executorService;
 
@@ -22,15 +21,18 @@ public class Processor {
     private IslandMap map;
     /** Поле управление островом */
     private IslandController controller;
+    /** Поле настройки симуляции */
+    private SimulationSettings settings;
 
     /**
-     * Конструктор класса, инициализирует поле диалога с пользователем,
+     * Конструктор класса, инициализирует поле настроек симуляции, поле диалога с пользователем,
      * поле карты острова, поле управления островом, поле запуска заданий по расписанию
      */
-    public Processor() {
-        this.dialog = new UserDialog();
-        this.map = new IslandMap(SimulationSettings.widthMap, SimulationSettings.heightMap);
-        this.controller = new IslandController(map);
+    public SimulationStarter() {
+        this.settings = new SimulationSettings();
+        this.dialog = new UserDialog(settings);
+        this.map = new IslandMap(settings.getWidthMap(), settings.getHeightMap());
+        this.controller = new IslandController(map, settings);
 
         executorService = Executors.newScheduledThreadPool(SimulationSettings.INITIAL_CORE_POOL_SIZE);
     }
@@ -41,11 +43,11 @@ public class Processor {
      */
     public void start() {
         controller.getMap().initialize();
-        controller.getMap().fill(SimulationSettings.maxAnimalCount);
+        controller.getMap().fill(settings.getMaxAnimalCount());
 
         executorService.scheduleWithFixedDelay(controller.getStatistics().createShowStatsTask(),
                 SimulationSettings.INITIAL_DELAY_SHOW_STATS_MILLIS,
-                SimulationSettings.statPeriod,
+                settings.getStatPeriod(),
                 TimeUnit.MILLISECONDS);
 
         executorService.scheduleWithFixedDelay(controller.createLifeCycleTask(),
@@ -55,7 +57,7 @@ public class Processor {
 
         executorService.scheduleWithFixedDelay(controller.getMap().createPlantGrowTask(),
                 SimulationSettings.INITIAL_DELAY_PLANT_GROW_MILLIS,
-                SimulationSettings.plantGrowTime,
+                settings.getPlantGrowTime(),
                 TimeUnit.MILLISECONDS);
     }
 }

@@ -1,22 +1,26 @@
 package com.javarush.islandlifesimulator.dialog;
 
-import com.javarush.islandlifesimulator.settings.SimulationSettings;
+import com.javarush.islandlifesimulator.simulation.SimulationSettings;
 
 import java.text.MessageFormat;
 import java.util.Scanner;
 
 import static com.javarush.islandlifesimulator.dialog.DialogText.*;
-import static com.javarush.islandlifesimulator.settings.SimulationSettings.*;
+import static com.javarush.islandlifesimulator.simulation.SimulationSettings.*;
 
 /**
  * Класс отвечающий за диалог с пользователем
  */
 public class UserDialog {
+    /** Поле настройки симуляции */
+    private SimulationSettings settings;
 
     /**
      * Конструктор класса, в котором пользователю предлагается ввести параметры и запустить симуляцию.
      */
-    public UserDialog() {
+    public UserDialog(SimulationSettings settings) {
+        this.settings = settings;
+
         try (Scanner scanner = new Scanner(System.in)) {
 
             System.out.println(ISLAND_IMAGE);
@@ -28,13 +32,13 @@ public class UserDialog {
 
                 System.out.println(ISLAND_MAP);
 
-                widthMap = initWidthMap(scanner);
-                heightMap = initHeightMap(scanner);
-                maxAnimalCount = initMaxAnimalCountAtStart(scanner);
-                reduceHealthPercent = initReduceHealthPercent(scanner);
-                plantGrowTime = initPlantGrowTime(scanner);
-                statPeriod = initStatPeriod(scanner);
-                maxNumberOfTact = initMaxNumberOfTact(scanner);
+                settings.setWidthMap(initWidthMap(scanner));
+                settings.setHeightMap(initHeightMap(scanner));
+                settings.setMaxAnimalCount(initMaxAnimalCountAtStart(scanner));
+                settings.setReduceHealthPercent(initReduceHealthPercent(scanner));
+                settings.setPlantGrowTime(initPlantGrowTime(scanner));
+                settings.setStatPeriod(initStatPeriod(scanner));
+                settings.setMaxNumberOfTact(initMaxNumberOfTact(scanner));
 
             }
             printSettings();
@@ -48,10 +52,10 @@ public class UserDialog {
      * @return возвращает номер максимального такта
      */
     private int initMaxNumberOfTact(Scanner scanner) {
-        int maxTact = maxNumberOfTact;
+        int maxTact = settings.getMaxNumberOfTact();
 
         while (true) {
-            System.out.print(MessageFormat.format(MAX_TACT_NUMBER_TO_STOP_SIM, maxNumberOfTact, MIN_LIMIT_TACT_NUMBER_TO_STOP_SIM, MAX_LIMIT_TACT_NUMBER_TO_STOP_SIM));
+            System.out.print(MessageFormat.format(MAX_TACT_NUMBER_TO_STOP_SIM, settings.getMaxNumberOfTact(), MIN_LIMIT_TACT_NUMBER_TO_STOP_SIM, MAX_LIMIT_TACT_NUMBER_TO_STOP_SIM));
 
             String maxTactAsString = scanner.nextLine();
             if (maxTactAsString.equals("")) {
@@ -73,10 +77,10 @@ public class UserDialog {
      * @return возвращает ширину карты
      */
     private int initWidthMap(Scanner scanner) {
-        int width = widthMap;
+        int width = settings.getWidthMap();
 
         while (true) {
-            System.out.print(MessageFormat.format(ENTER_WIDTH_MAP, widthMap, MIN_LIMIT_WIDTH_MAP, MAX_LIMIT_WIDTH_MAP));
+            System.out.print(MessageFormat.format(ENTER_WIDTH_MAP, settings.getWidthMap(), MIN_LIMIT_WIDTH_MAP, MAX_LIMIT_WIDTH_MAP));
 
             String widthAsString = scanner.nextLine();
             if (widthAsString.equals("")) {
@@ -98,10 +102,10 @@ public class UserDialog {
      * @return возвращает высоту карты
      */
     private int initHeightMap(Scanner scanner) {
-        int height = heightMap;
+        int height = settings.getHeightMap();
 
         while (true) {
-            System.out.print(MessageFormat.format(ENTER_HEIGHT_MAP, heightMap, MIN_LIMIT_HEIGHT_MAP, MAX_LIMIT_HEIGHT_MAP));
+            System.out.print(MessageFormat.format(ENTER_HEIGHT_MAP, settings.getHeightMap(), MIN_LIMIT_HEIGHT_MAP, MAX_LIMIT_HEIGHT_MAP));
 
             String heightAsString = scanner.nextLine();
             if (heightAsString.equals("")) {
@@ -123,10 +127,10 @@ public class UserDialog {
      * @return возвращает максимальное кол-во животных
      */
     private int initMaxAnimalCountAtStart(Scanner scanner) {
-        int count = maxAnimalCount;
+        int count = settings.getMaxAnimalCount();
 
         while (true) {
-            System.out.print(MessageFormat.format(INITIAL_NUMBER_OF_ANIMALS, maxAnimalCount, MIN_LIMIT_INITIAL_NUMBER_OF_ANIMALS, MAX_LIMIT_INITIAL_NUMBER_OF_ANIMALS));
+            System.out.print(MessageFormat.format(INITIAL_NUMBER_OF_ANIMALS, settings.getMaxAnimalCount(), MIN_LIMIT_INITIAL_NUMBER_OF_ANIMALS, MAX_LIMIT_INITIAL_NUMBER_OF_ANIMALS));
 
             String countAsString = scanner.nextLine();
             if (countAsString.equals("")) {
@@ -148,10 +152,10 @@ public class UserDialog {
      * @return возвращает процент уменьшения здоровья
      */
     private double initReduceHealthPercent(Scanner scanner) {
-        int reduceHealthPercent = (int) SimulationSettings.reduceHealthPercent;
+        int reduceHealthPercent = (int) settings.getReduceHealthPercent();
 
         while (true) {
-            System.out.print(MessageFormat.format(REDUCTION_HEALTH_EVERY_TACT, SimulationSettings.reduceHealthPercent, MIN_LIMIT_REDUCTION_HEALTH_EVERY_TACT, MAX_LIMIT_REDUCTION_HEALTH_EVERY_TACT));
+            System.out.print(MessageFormat.format(REDUCTION_HEALTH_EVERY_TACT, settings.getReduceHealthPercent(), MIN_LIMIT_REDUCTION_HEALTH_EVERY_TACT, MAX_LIMIT_REDUCTION_HEALTH_EVERY_TACT));
 
             String valueAsString = scanner.nextLine();
             if (valueAsString.equals("")) {
@@ -173,10 +177,10 @@ public class UserDialog {
      * @return возвращает частоту роста растений, в мс
      */
     private int initPlantGrowTime(Scanner scanner) {
-        int time = plantGrowTime;
+        int time = settings.getPlantGrowTime();
 
         while (true) {
-            System.out.print(MessageFormat.format(PLANT_GROW_DELAY, plantGrowTime, MIN_LIMIT_PLANT_GROW_DELAY, MAX_LIMIT_PLANT_GROW_DELAY));
+            System.out.print(MessageFormat.format(PLANT_GROW_DELAY, settings.getPlantGrowTime(), MIN_LIMIT_PLANT_GROW_DELAY, MAX_LIMIT_PLANT_GROW_DELAY));
 
             String timeAsString = scanner.nextLine();
             if (timeAsString.equals("")) {
@@ -198,10 +202,10 @@ public class UserDialog {
      * @return возвращает частоту изменения статистических данных, в мс
      */
     private int initStatPeriod(Scanner scanner) {
-        int time = statPeriod;
+        int time = settings.getStatPeriod();
 
         while (true) {
-            System.out.print(MessageFormat.format(ENTER_STAT_PERIOD, statPeriod, MIN_LIMIT_STAT_PERIOD, MAX_LIMIT_STAT_PERIOD));
+            System.out.print(MessageFormat.format(ENTER_STAT_PERIOD, settings.getStatPeriod(), MIN_LIMIT_STAT_PERIOD, MAX_LIMIT_STAT_PERIOD));
 
             String timeAsString = scanner.nextLine();
             if (timeAsString.equals("")) {
@@ -249,12 +253,12 @@ public class UserDialog {
         System.out.println(ALL_READY_TO_GO);
 
         System.out.println("----------------------------------");
-        System.out.println(MessageFormat.format(SIZE_MAP, widthMap, heightMap));
-        System.out.println(MessageFormat.format(ANIMAL_COUNT_ON_LOCATION, maxAnimalCount));
-        System.out.println(MessageFormat.format(HEALTH_REDUCE_FROM_HUNGER, reduceHealthPercent));
-        System.out.println(MessageFormat.format(PLANT_GROW_TIME, plantGrowTime));
-        System.out.println(MessageFormat.format(STAT_PERIOD, statPeriod));
-        System.out.println(MessageFormat.format(STOP_SIMULATION, maxNumberOfTact));
+        System.out.println(MessageFormat.format(SIZE_MAP, settings.getWidthMap(), settings.getHeightMap()));
+        System.out.println(MessageFormat.format(ANIMAL_COUNT_ON_LOCATION, settings.getMaxAnimalCount()));
+        System.out.println(MessageFormat.format(HEALTH_REDUCE_FROM_HUNGER, settings.getReduceHealthPercent()));
+        System.out.println(MessageFormat.format(PLANT_GROW_TIME, settings.getPlantGrowTime()));
+        System.out.println(MessageFormat.format(STAT_PERIOD, settings.getStatPeriod()));
+        System.out.println(MessageFormat.format(STOP_SIMULATION, settings.getMaxNumberOfTact()));
         System.out.println("----------------------------------");
     }
 

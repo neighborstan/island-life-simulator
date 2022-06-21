@@ -1,4 +1,7 @@
-package com.javarush.islandlifesimulator.settings;
+package com.javarush.islandlifesimulator.simulation;
+
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Класс содержит основные константы и изменяемые параметры приложения
@@ -48,19 +51,35 @@ public class SimulationSettings {
     public static final int MAX_LIMIT_STAT_PERIOD = 60000;
 
     /** Настраиваемый параметр ширины карты острова */
-    public static int widthMap = 100;
+    @Getter
+    @Setter
+    private int widthMap = 100;
     /** Настраиваемый параметр высоты карты острова */
-    public static int heightMap = 20;
+    @Getter
+    @Setter
+    private int heightMap = 20;
     /** Настраиваемый параметр кол-ва животных в локации при заполнении */
-    public static int maxAnimalCount = 1;
+    @Getter
+    @Setter
+    private int maxAnimalCount = 1;
     /** Настраиваемый параметр уменьшения здоровья ежетактно, % */
-    public static double reduceHealthPercent = 30;
+    @Getter
+    @Setter
+    private double reduceHealthPercent = 30;
     /** Настраиваемый параметр увеличения здоровья, % */
-    public static double increaseHealthPercent = 30;
+    @Getter
+    @Setter
+    private double increaseHealthPercent = 30;
     /** Настраиваемый параметр частоты роста растений, мс */
-    public static int plantGrowTime = 100;
+    @Getter
+    @Setter
+    private int plantGrowTime = 100;
     /** Настраиваемый параметр частоты вывода статистики в консоль, мс */
-    public static int statPeriod = 100;
+    @Getter
+    @Setter
+    private int statPeriod = 100;
     /** Настраиваемый параметр максимального номера такта для завершения симуляции */
-    public static int maxNumberOfTact = 300;
+    @Getter
+    @Setter
+    private int maxNumberOfTact = 300;
 }

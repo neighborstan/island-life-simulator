@@ -7,8 +7,8 @@ import com.javarush.islandlifesimulator.entities.Entity;
 import com.javarush.islandlifesimulator.entities.animals.Action;
 import com.javarush.islandlifesimulator.entities.animals.Animal;
 import com.javarush.islandlifesimulator.entities.animals.Direction;
-import com.javarush.islandlifesimulator.process.Processor;
-import com.javarush.islandlifesimulator.settings.SimulationSettings;
+import com.javarush.islandlifesimulator.simulation.SimulationStarter;
+import com.javarush.islandlifesimulator.simulation.SimulationSettings;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,14 +36,17 @@ public class IslandController {
     private IslandStats statistics;
     /** Поле сервис исполнения заданий по каждой локации острова  */
     private ExecutorService locationRunExecutor;
+    /** Поле настройки симуляции */
+    private SimulationSettings settings;
 
     /**
      * Конструктор класса
      * @param map объект карты острова
      */
-    public IslandController(IslandMap map) {
+    public IslandController(IslandMap map, SimulationSettings settings) {
         this.map = map;
         this.statistics = new IslandStats(map);
+        this.settings = settings;
         this.locationRunExecutor = Executors.newWorkStealingPool();
         this.eatingMap = initEatingChanceData();
     }
@@ -110,7 +113,7 @@ public class IslandController {
      * Метод останавливает симуляцию жизненного цикла острова
      */
     private void stopSimulation() {
-        Processor.executorService.shutdown();
+        SimulationStarter.executorService.shutdown();
     }
 
     /**
@@ -119,7 +122,7 @@ public class IslandController {
      * @return возвращает true, если текущий такт больше или равен максимальному
      */
     private boolean isEndLifeCycle(int currentTact) {
-        return currentTact >= SimulationSettings.maxNumberOfTact;
+        return currentTact >= settings.getMaxNumberOfTact();
     }
 
     /**
@@ -127,7 +130,7 @@ public class IslandController {
      * @param animal животное, у которого уменьшается уровень здоровья
      */
     private void reduceHealth(Animal animal) {
-        double healthScale = animal.getHealthScale() - ((animal.getEnoughAmountFood() * SimulationSettings.reduceHealthPercent) / 100);
+        double healthScale = animal.getHealthScale() - ((animal.getEnoughAmountFood() * settings.getReduceHealthPercent()) / 100);
         animal.setHealthScale(healthScale);
     }
 
@@ -136,7 +139,7 @@ public class IslandController {
      * @param animal животоное, у которого увеличивается уровень здоровья
      */
     private void increaseHealth(Animal animal) {
-        double healthScale = animal.getHealthScale() + ((animal.getEnoughAmountFood() * SimulationSettings.increaseHealthPercent) / 100);
+        double healthScale = animal.getHealthScale() + ((animal.getEnoughAmountFood() * settings.getIncreaseHealthPercent()) / 100);
         if (healthScale > animal.getHealthScale()) {
             healthScale = animal.getEnoughAmountFood();
         }

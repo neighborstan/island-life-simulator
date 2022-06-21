@@ -1,10 +1,10 @@
 package com.javarush.islandlifesimulator;
 
-import com.javarush.islandlifesimulator.process.Processor;
+import com.javarush.islandlifesimulator.simulation.SimulationStarter;
 
 public class Main {
     public static void main(String[] args) {
-        Processor simulation = new Processor();
+        SimulationStarter simulation = new SimulationStarter();
         simulation.start();
     }
 }
