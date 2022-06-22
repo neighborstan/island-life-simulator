@@ -5,15 +5,21 @@ import com.javarush.islandlifesimulator.entities.Entity;
 import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class Animal extends Entity {
-    //TODO вытащить в настройки
     private static final int MAX_ACTION_CHANCE_INDEX = 100;
 
     private double weight;
     private int maxOnCage;
     private int speed;
     private double enoughAmountFood;
+    private double healthScale;
 
-    private double healthScale = enoughAmountFood;
+    public Animal(double weight, int maxOnCage, int speed, double enoughAmountFood) {
+        this.weight = weight;
+        this.maxOnCage = maxOnCage;
+        this.speed = speed;
+        this.enoughAmountFood = enoughAmountFood;
+        this.healthScale = enoughAmountFood;
+    }
 
     public double getHealthScale() {
         return healthScale;
