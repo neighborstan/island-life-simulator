@@ -51,11 +51,7 @@ public class IslandStats {
                     String entityAsString = entity.getClass().getSimpleName();
                     String entityAsImage = EntityType.valueOf(entityAsString.toUpperCase()).getUnicodeSymbol();
 
-                    if (!entitiesStats.containsKey(entityAsImage)) {
-                        entitiesStats.put(entityAsImage, 1);
-                    } else {
-                        entitiesStats.put(entityAsImage, entitiesStats.get(entityAsImage) + 1);
-                    }
+                    entitiesStats.merge(entityAsImage, 1, (oldValue, newValue) -> oldValue + 1);
                 }
             }
         }

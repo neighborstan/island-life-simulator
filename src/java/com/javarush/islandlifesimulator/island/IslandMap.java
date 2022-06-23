@@ -51,6 +51,12 @@ public class IslandMap {
             for (int coordX = 0; coordX < width; coordX++) {
                 for (int i = 0; i <= maxEntityCount; i++) {
                     Entity entity = getRandomEntity();
+
+                    String entityAsString = entity.getClass().getSimpleName();
+                    Integer entityCountOnLocation = locations[coordY][coordX].getEntitiesAndCount().getOrDefault(entityAsString, 0);
+                    if (entityCountOnLocation >= entity.getMaxOnCage()){
+                        continue;
+                    }
                     locations[coordY][coordX].addEntity(entity);
                 }
             }

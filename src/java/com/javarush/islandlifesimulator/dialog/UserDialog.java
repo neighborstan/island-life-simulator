@@ -271,7 +271,7 @@ public class UserDialog {
         while (!scanner.nextLine().equals(START)) {
             System.out.println(TYPE_START_AND_PRESS_ENTER);
         }
-        System.out.println(GO);
+        System.out.println(GO_MESSAGE);
     }
 
     /**
@@ -296,7 +296,9 @@ public class UserDialog {
      * @return возвращает true, если число входит в валидный диапазон
      */
     private boolean isMinMaxRangeValid(int number, int minLimit, int maxLimit) {
-        if (number < minLimit) return false;
+        if (number < minLimit) {
+            return false;
+        }
         return number <= maxLimit;
     }
 }

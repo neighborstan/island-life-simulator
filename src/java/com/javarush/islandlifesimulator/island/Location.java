@@ -4,6 +4,8 @@ import com.javarush.islandlifesimulator.entities.Entity;
 import com.javarush.islandlifesimulator.entities.animals.Animal;
 
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -16,9 +18,11 @@ public class Location {
     private int coordY;
     /** Поле список всех сущностей локации */
     private List<Entity> entities;
+    /** Поле типы всех сущностей локации и их кол-во */
+    private Map<String, Integer> entitiesAndCount;
 
     /**
-     * Конструктор класса, инициализирует координаты и список сущностей локации
+     * Конструктор класса, инициализирует координаты, список сущностей локации  и карту типов с их кол-вом
      * @param coordX координата х локации
      * @param coordY координата у локации
      */
@@ -26,6 +30,7 @@ public class Location {
         this.coordX = coordX;
         this.coordY = coordY;
         this.entities = new CopyOnWriteArrayList<>();
+        this.entitiesAndCount = new ConcurrentHashMap<>();
     }
 
     /**
@@ -33,7 +38,9 @@ public class Location {
      * @param entity сущность (животное/растение)
      */
     public void addEntity(Entity entity) {
+        String entityAsString = entity.getClass().getSimpleName();
         entities.add(entity);
+        entitiesAndCount.merge(entityAsString, 1, (oldValue, newValue) -> oldValue + 1);
     }
 
     /**
@@ -41,7 +48,15 @@ public class Location {
      * @param entity сущность (животное/растение)
      */
     public void removeEntity(Entity entity) {
+        String entityAsString = entity.getClass().getSimpleName();
         entities.remove(entity);
+        entitiesAndCount.merge(entityAsString, 1, (oldValue, newValue) -> {
+            int newCount = oldValue - 1;
+            if (newCount <= 0){
+                return null;
+            }
+            return newCount;
+        });
     }
 
     /**
@@ -61,6 +76,14 @@ public class Location {
                 .filter(entity -> entity instanceof Animal)
                 .map(entity -> (Animal) entity)
                 .toList();
+    }
+
+    /**
+     * Геттер для поля с типами сущностей локации и их кол-вом
+     * @return возвращает список сущностей локации
+     */
+    public Map<String, Integer> getEntitiesAndCount() {
+        return entitiesAndCount;
     }
 
     /**

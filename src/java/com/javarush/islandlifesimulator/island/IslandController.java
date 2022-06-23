@@ -174,6 +174,11 @@ public class IslandController {
      * @param location текущая локация
      */
     private void doProduce(Animal animal, Location location) {
+        String animalAsString = animal.getClass().getSimpleName();
+        if (location.getEntitiesAndCount().get(animalAsString) >= animal.getMaxOnCage()){
+            return;
+        }
+
         List<Animal> animals = location.getAnimals();
 
         List<Animal> sameAnimalType = animals.stream()
@@ -288,6 +293,11 @@ public class IslandController {
         int currentY = currentLocation.getCoordY();
         if (currentY < map.getHeight() - 1) {
             Location newLocation = map.getLocations()[currentY + 1][currentX];
+
+            if (!canStep(animal, newLocation)){
+                return currentLocation;
+            }
+
             newLocation.addEntity(animal);
             currentLocation.removeEntity(animal);
             return newLocation;
@@ -306,6 +316,11 @@ public class IslandController {
         int currentY = currentLocation.getCoordY();
         if (currentY > 0) {
             Location newLocation = map.getLocations()[currentY - 1][currentX];
+
+            if (!canStep(animal, newLocation)){
+                return currentLocation;
+            }
+
             newLocation.addEntity(animal);
             currentLocation.removeEntity(animal);
             return newLocation;
@@ -324,6 +339,11 @@ public class IslandController {
         int currentY = currentLocation.getCoordY();
         if (currentX > 0) {
             Location newLocation = map.getLocations()[currentY][currentX - 1];
+
+            if (!canStep(animal, newLocation)){
+                return currentLocation;
+            }
+
             newLocation.addEntity(animal);
             currentLocation.removeEntity(animal);
             return newLocation;
@@ -342,10 +362,29 @@ public class IslandController {
         int currentY = currentLocation.getCoordY();
         if (currentX < map.getWidth() - 1) {
             Location newLocation = map.getLocations()[currentY][currentX + 1];
+
+            if (!canStep(animal, newLocation)){
+                return currentLocation;
+            }
+
             newLocation.addEntity(animal);
             currentLocation.removeEntity(animal);
             return newLocation;
         }
         return currentLocation;
+    }
+
+    /**
+     * Метод проверяет возможность переместиться на планируемую локацию
+     * @param animal передвигаемое животное
+     * @param newLocation новая локация
+     * @return возвращает true если нет ограничений для перемещения
+     */
+    private boolean canStep(Animal animal, Location newLocation){
+        String animalAsString = animal.getClass().getSimpleName();
+        if (newLocation.getEntitiesAndCount().get(animalAsString) >= animal.getMaxOnCage()){
+            return false;
+        }
+        return true;
     }
 }
