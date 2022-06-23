@@ -22,7 +22,7 @@ public enum EntityType {
     PLANT("\uD83C\uDF31");
 
     /** Поле юникод-последовательность(эмодзи) для отображения сущности */
-    private String unicodeSymbol;
+    private final String unicodeSymbol;
 
     /**
      * Конструктор перечисления, инициализирует поле с эмодзи сущности

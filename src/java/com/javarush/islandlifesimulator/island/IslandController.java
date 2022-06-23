@@ -294,7 +294,7 @@ public class IslandController {
         if (currentY < map.getHeight() - 1) {
             Location newLocation = map.getLocations()[currentY + 1][currentX];
 
-            if (!canStep(animal, newLocation)){
+            if (cantStep(animal, newLocation)){
                 return currentLocation;
             }
 
@@ -317,7 +317,7 @@ public class IslandController {
         if (currentY > 0) {
             Location newLocation = map.getLocations()[currentY - 1][currentX];
 
-            if (!canStep(animal, newLocation)){
+            if (cantStep(animal, newLocation)){
                 return currentLocation;
             }
 
@@ -340,7 +340,7 @@ public class IslandController {
         if (currentX > 0) {
             Location newLocation = map.getLocations()[currentY][currentX - 1];
 
-            if (!canStep(animal, newLocation)){
+            if (cantStep(animal, newLocation)){
                 return currentLocation;
             }
 
@@ -363,7 +363,7 @@ public class IslandController {
         if (currentX < map.getWidth() - 1) {
             Location newLocation = map.getLocations()[currentY][currentX + 1];
 
-            if (!canStep(animal, newLocation)){
+            if (cantStep(animal, newLocation)){
                 return currentLocation;
             }
 
@@ -378,13 +378,10 @@ public class IslandController {
      * Метод проверяет возможность переместиться на планируемую локацию
      * @param animal передвигаемое животное
      * @param newLocation новая локация
-     * @return возвращает true если нет ограничений для перемещения
+     * @return возвращает true если нельзя сделать шаг в выбранную соседнюю локацию
      */
-    private boolean canStep(Animal animal, Location newLocation){
+    private boolean cantStep(Animal animal, Location newLocation){
         String animalAsString = animal.getClass().getSimpleName();
-        if (newLocation.getEntitiesAndCount().get(animalAsString) >= animal.getMaxOnCage()){
-            return false;
-        }
-        return true;
+        return newLocation.getEntitiesAndCount().get(animalAsString) >= animal.getMaxOnCage();
     }
 }
